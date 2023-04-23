@@ -52,7 +52,7 @@ export default function useCurrentWeather() {
           precipitationProbability,
           relativeHumidity,
           weatherCode,
-          isDay: data.isDay === 1,
+          isDay: isDay === 1,
         };
 
         setData(currentWeatherData);
