@@ -1,8 +1,8 @@
-import useWeatherApi from "@/hooks/useWeatherApi";
+import { useWeatherApi } from "@/hooks/useWeather";
 import { toCustomString } from "@/utils/fDate";
 import { useEffect, useState } from "react";
 
-export default function useCurrentWeather() {
+export function useCurrentWeather() {
   const {
     getCurrentWeatherInfo,
   } = useWeatherApi();

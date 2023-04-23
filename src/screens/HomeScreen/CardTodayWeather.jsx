@@ -2,8 +2,8 @@
 import Card from "@/components/Card";
 import CardMini from "@/components/CardMini";
 import SkyConditionIllustration from "@/components/SkyConditionIllustration";
-import useCurrentWeather from "@/hooks/useCurrentWeather";
-import useNominatimApi from "@/hooks/useNominatimApi";
+import { useCurrentWeather } from "@/hooks/useWeather";
+import { useNominatimApi } from "@/hooks/useGeolocation";
 import { Icon } from "@iconify/react";
 
 function CardTodayWeather() {

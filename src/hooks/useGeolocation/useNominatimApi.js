@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import useGeolocation from "./useGeolocation";
+import { useGeolocation } from "@/hooks/useGeolocation";
 
-export default function useNominatimApi() {
+export function useNominatimApi() {
   const {latitude, longitude} = useGeolocation();
   const [city, setCity] = useState(""); 
   const [state, setState] = useState(""); 

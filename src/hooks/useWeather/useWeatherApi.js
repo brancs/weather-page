@@ -1,6 +1,6 @@
-import useGeolocation from "./useGeolocation";
+import { useGeolocation } from "@/hooks/useGeolocation";
 
-export default function useWeatherApi() {
+export function useWeatherApi() {
   const {latitude, longitude} = useGeolocation();
   const baseUrl = "https://api.open-meteo.com/v1/forecast?";
   const userLatitude = latitude;
