@@ -12,7 +12,7 @@ export function useWeatherApi() {
   }
 
   async function getCurrentWeatherInfo() {
-    const url = makeUserUrl("&current_weather=true&daily=temperature_2m_max,temperature_2m_min&hourly=temperature_2m,windspeed_10m,precipitation_probability,relativehumidity_2m,weathercode,is_day");
+    const url = makeUserUrl("&current_weather=true&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&hourly=temperature_2m,windspeed_10m,precipitation_probability,relativehumidity_2m,weathercode,is_day,uv_index_clear_sky");
     try {
       const rawResponse = await fetch(url);
       const response = await rawResponse.json();

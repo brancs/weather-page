@@ -1,13 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import Card from "@/components/Card";
-import CardMini from "@/components/CardMini";
+import { Card, CardMini } from "@/components/Card";
 import SkyConditionIllustration from "@/components/SkyConditionIllustration";
 import { useCurrentWeather } from "@/hooks/useWeather";
 import { useNominatimApi } from "@/hooks/useGeolocation";
 import { Icon } from "@iconify/react";
 
-function CardTodayWeather() {
-  const {data, loading, error} = useCurrentWeather();
+function CardTodayWeather({data, loading, error}) {
   const {city, state} = useNominatimApi();
 
   if(loading) {

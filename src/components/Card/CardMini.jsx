@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
-import Card from "./Card";
+import { Card } from "@/components/Card";
 
-export default function CardMini({iconId, title, value, unitMeasurement}) {
+export function CardMini({iconId, title, value, unitMeasurement}) {
   return (
     <Card padding={"py-3 px-4"}>
       <div className="flex flex-col xl:flex-row xl:items-center gap-3">

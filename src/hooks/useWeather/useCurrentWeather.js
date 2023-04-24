@@ -1,5 +1,5 @@
 import { useWeatherApi } from "@/hooks/useWeather";
-import { toCustomString } from "@/utils/fDate";
+import currentTimeIndex from "@/utils/currentTimeIndex";
 import { useEffect, useState } from "react";
 
 export function useCurrentWeather() {
@@ -13,7 +13,7 @@ export function useCurrentWeather() {
   useEffect(() => {
     setError(null);
 
-    async function fetchWeatherApi() {
+    async function fetchApiData() {
       setLoading(true);
 
       try {
@@ -25,6 +25,8 @@ export function useCurrentWeather() {
         const {
           temperature_2m_min:temperatureMin,
           temperature_2m_max:temperatureMax,
+          sunrise,
+          sunset
         } = daily;
         const {
           temperature_2m:temperatureList,
@@ -33,6 +35,7 @@ export function useCurrentWeather() {
           relativehumidity_2m:relativeHumidityList,
           weathercode:weatherCodeList,
           is_day:isDayList,
+          uv_index_clear_sky:uvIndexClearSky
         } = hourly;
 
         const temperature= Math.trunc(temperatureList[currentHourIndex]);
@@ -53,6 +56,9 @@ export function useCurrentWeather() {
           relativeHumidity,
           weatherCode,
           isDay: isDay === 1,
+          sunrise: sunrise[0],
+          sunset: sunset[0],
+          uvIndexClearSky
         };
 
         setData(currentWeatherData);
@@ -64,7 +70,7 @@ export function useCurrentWeather() {
       }
     }
 
-    fetchWeatherApi();
+    fetchApiData();
   }, []);
 
   return {
@@ -72,38 +78,4 @@ export function useCurrentWeather() {
     loading,
     error,
   };
-}
-
-function timeOnlyHour(formated = false, hour) {
-  const timeNow = new Date();
-
-  if (hour !== undefined) timeNow.setHours(hour);
-
-  timeNow.setMinutes(0);
-  timeNow.setSeconds(0);
-
-  if (formated) return toCustomString(timeNow);
-
-  return timeNow;
-}
-
-function makeDateHourOnlyList() {
-  const hoursIndexes = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    21, 22, 23,
-  ];
-  let dateHoursList = [];
-
-  hoursIndexes.forEach((hour) => {
-    dateHoursList.push(timeOnlyHour(true, hour));
-  });
-
-  return dateHoursList;
-}
-
-function currentTimeIndex() {
-  const dateHourNow = timeOnlyHour(true);
-  let dateHoursList = makeDateHourOnlyList();
-
-  return dateHoursList.findIndex((dateHour) => dateHour === dateHourNow);
 }
