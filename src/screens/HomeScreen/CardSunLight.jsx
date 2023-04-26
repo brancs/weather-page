@@ -23,7 +23,7 @@ function CardSunLight({ data, loading, error }) {
           <div className="h-full grid place-content-center">
             <p className="flex items-center gap-1 text-4xl font-bold">
               <Icon icon={"ph:cloud-moon-fill"} className="inline-block text-4xl text-violet-300" />
-              <span>Boa noite</span>
+              <span>Boa Noite</span>
             </p>
           </div>
         </Card>
