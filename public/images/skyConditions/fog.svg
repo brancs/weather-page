@@ -2,11 +2,11 @@
 <g clip-path="url(#clip0_101_18)">
 <path d="M225.693 159.224C225.693 195.736 196.094 225.335 159.582 225.335C123.07 225.335 93.4714 195.736 93.4714 159.224C93.4714 122.712 123.07 93.1135 159.582 93.1135C196.094 93.1135 225.693 122.712 225.693 159.224Z" fill="url(#paint0_linear_101_18)"/>
 <g filter="url(#filter0_b_101_18)">
-<path d="M0.97876 174.017C0.97876 167.39 6.35134 162.017 12.9788 162.017H306.806C313.434 162.017 318.806 167.39 318.806 174.017V305.827C318.806 312.455 313.434 317.827 306.806 317.827H12.9788C6.35135 317.827 0.97876 312.455 0.97876 305.827V174.017Z" fill="url(#paint1_linear_101_18)" fill-opacity="0.2"/>
+<path d="M1 0H319V318H1V0Z" fill="url(#paint1_linear_101_18)" fill-opacity="0.2"/>
 </g>
 </g>
 <defs>
-<filter id="filter0_b_101_18" x="-30.0591" y="130.98" width="379.903" height="217.886" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_b_101_18" x="-30.0378" y="-31.0378" width="380.076" height="380.076" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feGaussianBlur in="BackgroundImageFix" stdDeviation="15.5189"/>
 <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_101_18"/>
@@ -16,7 +16,7 @@
 <stop stop-color="#FFD88B"/>
 <stop offset="1" stop-color="#FFA900"/>
 </linearGradient>
-<linearGradient id="paint1_linear_101_18" x1="159.892" y1="164.811" x2="159.892" y2="320.931" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint1_linear_101_18" x1="160" y1="5.7012" x2="160" y2="324.335" gradientUnits="userSpaceOnUse">
 <stop stop-color="white"/>
 <stop offset="1" stop-color="white" stop-opacity="0"/>
 </linearGradient>

@@ -2,7 +2,7 @@
 
 ## Available at
 
-[GitHub Pages](#)
+[Vercel](#)
 
 ## Getting Started
 

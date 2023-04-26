@@ -1,162 +1,80 @@
 // @ts-nocheck
-import 'chartjs-adapter-date-fns';
-import { ptBR } from 'date-fns/locale';
-import {Card, CardTitle} from "@/components/Card";
-import { makeDateHourOnlyList } from "@/utils/currentTimeIndex";
-import { toCustomString } from "@/utils/fDate";
-import {
-  Chart as ChartJS,
-  registerables,
-} from "chart.js";
-import { useEffect, useState } from "react";
+import { Card, CardTitle } from "@/components/Card";
+import { Chart as ChartJS, registerables } from "chart.js";
+import { useEffect } from "react";
 import { Line } from "react-chartjs-2";
+import useSunlightChart from "@/hooks/useSunlightChart";
+import { Icon } from "@iconify/react";
 
 ChartJS.register(...registerables);
 
-function CardSunLight({data, loading, error}) {
-  const [chartData, setChartData] = useState(null);
-  const [chartOptions, setChartOptions] = useState(null);
-  const currentDate = new Date();
-  currentDate.setMinutes(0); 
-  const currentDateZero = toCustomString(currentDate);
+function CardSunLight({ data, loading, error }) {
+  const { chartOptions, chartData, setSunlightChartData, showChart } =
+    useSunlightChart();
 
   useEffect(() => {
-    if(data) {
-      const dateHourOnlyList = makeDateHourOnlyList();
-      const uvIndexClearSkyList = data.uvIndexClearSky;
-      const tempList = dateHourOnlyList.map((hour, index) => {
-        return {
-          time: hour,
-          uvIndex: uvIndexClearSkyList[index]
-        };
-      });
+    if (data) setSunlightChartData(data);
+  }, [data, setSunlightChartData]);
 
-      const labels = tempList.map(({time}) => time);
-      const dataChart = {
-        labels: labels,
-        datasets: [{
-          label: 'UV Index',
-          data: tempList.map(({uvIndex}) => uvIndex),
-          pointBackgroundColor: tempList.map(({time}) => time === currentDateZero ? "#F6C833" : "transparent"),
-          pointBorderColor: tempList.map(({time}) => time === currentDateZero ? "#F6C833" : "transparent"),
-          pointBorderWidth: 10,
-          pointHoverBorderWidth: 10,
-          fill: true,
-          borderColor: '#DAD8F7',
-          borderJoinStyle: "round",
-          tension: 0.4
-        }]
-      };
-
-      const zeroSunrise = new Date(data.sunrise);
-      const zeroSunset = new Date(data.sunset);
-
-      zeroSunrise.setMinutes(0);
-      zeroSunset.setHours(zeroSunset.getHours() + 1);
-      zeroSunset.setMinutes(0);
-
-      const chartOptions = {
-        responsive:true,
-        scales: {
-          x: {
-            min: toCustomString(zeroSunrise),
-            max: toCustomString(zeroSunset),
-            border: {
-              display: false,
-            },
-            grid: {
-              display: false
-            },
-            ticks: {
-              autoSkip: false,
-              color: "#DAD8F7",
-              font: {
-                family: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-                size: 12,
-                weight: "bold"
-              },
-              callback: (text, index, values) => {
-                const today = new Date();
-                today.setHours(text);
-                today.setMinutes(0);
-
-                if (index === 0 || index === (values.length - 1)) {
-                  return `${today.toLocaleTimeString("pt-br", {hour: "2-digit", minute: "2-digit"})}`;
-                }
-              },
-            },
-          },
-          y: {
-            border: {
-              display: false,
-            },
-            grid: {
-              display: false
-            },
-            ticks: {
-              display: false
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            enabled: false,
-          },
-        }
-      };
-
-      setChartData(dataChart);
-      setChartOptions(chartOptions);
-    }
-  }, [data, currentDateZero])
-
-  if(loading) {
+  if (!showChart) {
     return (
-      <Card cloudBg={true}>
-        <p className='uppercase text-white'>Loading</p>
-      </Card>
+      <div className="col-span-full xl:col-span-1">
+        <Card>
+          <div className="h-full grid place-content-center">
+            <p className="flex items-center gap-1 text-4xl font-bold">
+              <Icon icon={"ph:cloud-moon-fill"} className="inline-block text-4xl text-violet-300" />
+              <span>Boa noite</span>
+            </p>
+          </div>
+        </Card>
+      </div>
+    );
+  };
+
+  if (loading) {
+    return (
+      <div className="col-span-full xl:col-span-1">
+        <Card>
+          <p className="uppercase text-white">Loading</p>
+        </Card>
+      </div>
     );
   }
 
-  if(error) {
+  if (error) {
     return (
-      <Card cloudBg={true}>
-        <p className='uppercase text-white'>{error.message}</p>
-      </Card>
+      <div className="col-span-full xl:col-span-1">
+        <Card>
+          <p className="uppercase text-white">{error.message}</p>
+        </Card>
+      </div>
     );
   }
 
-  if(data && chartData && chartOptions) {
+  if (data && chartData && chartOptions) {
     return (
-      <Card padding="p-4 pt-8">
-        <div className="flex flex-col items-center h-full">
-          <div className="grow">
-            <CardTitle icon="ph:sun-fill">Horário do sol</CardTitle>
-          </div>
-          <div className="flex gap-4">
-          </div>
-          <div className="grow w-full text-center py-8 px-12 lg:px-4">
-            <div>
-              <Line 
-                data={chartData} 
-                options={chartOptions}
-              />
+      <div className="col-span-full xl:col-span-1">
+        <Card height="h-full max-h-96 md:max-h-none" padding="p-4 pt-8">
+          <div className="flex flex-col items-center h-full">
+            <div className="grow">
+              <CardTitle icon="ph:sun-fill">Horário do sol</CardTitle>
             </div>
-            <div className="flex gap-4">
+            <div className="grow text-center py-8 px-12 lg:px-4">
+              <div>
+                <Line data={chartData} options={chartOptions} />
+              </div>
+              <div className="flex gap-4"></div>
             </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
     );
   }
 
   return (
-    <Card>
-      No data
-    </Card>
+    <div className="col-span-full xl:col-span-1">
+      <Card>No data</Card>
+    </div>
   );
 }
 

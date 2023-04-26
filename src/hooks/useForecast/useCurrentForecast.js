@@ -1,11 +1,11 @@
-import { useWeatherApi } from "@/hooks/useWeather";
+import { useForecastApi } from "@/hooks/useForecast";
 import currentTimeIndex from "@/utils/currentTimeIndex";
 import { useEffect, useState } from "react";
 
-export function useCurrentWeather() {
+export function useCurrentForecast() {
   const {
     getCurrentWeatherInfo,
-  } = useWeatherApi();
+  } = useForecastApi();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -71,6 +71,7 @@ export function useCurrentWeather() {
     }
 
     fetchApiData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {

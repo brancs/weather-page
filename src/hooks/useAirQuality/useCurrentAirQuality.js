@@ -38,12 +38,12 @@ export function useCurrentAirQuality() {
           ozone:ozoneUnit,
         } = hourlyUnits;
 
-        const pm10 = pm10List[currentHourIndex].toFixed(1);
-        const pm25 = pm25List[currentHourIndex].toFixed(1);
-        const carbonMonoxide = carbonMonoxideList[currentHourIndex].toFixed(1);
-        const nitrogenDioxide = nitrogenDioxideList[currentHourIndex].toFixed(1);
-        const sulphurDioxide = sulphurDioxideList[currentHourIndex].toFixed(1);
-        const ozone = ozoneList[currentHourIndex].toFixed(1);
+        const pm10 = Math.trunc(pm10List[currentHourIndex]);
+        const pm25 = Math.trunc(pm25List[currentHourIndex]);
+        const carbonMonoxide = Math.trunc(carbonMonoxideList[currentHourIndex]);
+        const nitrogenDioxide = Math.trunc(nitrogenDioxideList[currentHourIndex]);
+        const sulphurDioxide = Math.trunc(sulphurDioxideList[currentHourIndex]);
+        const ozone = Math.trunc(ozoneList[currentHourIndex]);
         const europeanAQI = europeanAQIList[currentHourIndex];
 
         const currentAirQualityData = {
@@ -98,6 +98,8 @@ export function useCurrentAirQuality() {
     }
 
     fetchApiData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 
-export default function SkyConditionIllustration({weatherCode, isDay=true}) {
+export default function SkyConditionIllustration({weatherCode, isDay=true, customStyle=""}) {
   const baseImgPath = `/images/skyConditions/`;
 
   const skyConditions = [
@@ -35,11 +35,24 @@ export default function SkyConditionIllustration({weatherCode, isDay=true}) {
     {id:99, path: `${baseImgPath}thunderstorm.svg`},
   ];
 
+  const result = skyConditions.filter(({id}) => id === weatherCode);
+
+  if(!result[0].path) return null;
+
+  if(customStyle.length > 0) {
+    return (
+      <img className={customStyle}
+        src={result[0].path} 
+        alt={result[0].path} 
+      />
+    );
+  }
+
   return (
     <img 
-      src={skyConditions[weatherCode].path} 
-      alt={skyConditions[weatherCode].path} 
-      className="absolute top-[-10%] left-[-2%] lg:top-[-15%] lg:left-[-12%]" 
+      src={result[0].path} 
+      alt={result[0].path} 
+      className="absolute top-0 left-0 translate-x-[-30%] translate-y-[-35%]" 
     />
   )
 }
